@@ -20,6 +20,18 @@ const Form: React.FC<Props> = ({ store }) => {
         store.add({
           title: store.InputValue,
           is_done: false,
+          markDone: function (): void {
+            throw new Error("Function not implemented.");
+          },
+          toggle: function (): void {
+            throw new Error("Function not implemented.");
+          },
+          ontoggle: function (status: boolean): void {
+            throw new Error("Function not implemented.");
+          },
+          status: function (): "Done" | "Not Done" {
+            throw new Error("Function not implemented.");
+          },
         });
         setLocalInputValue("");
         store.clearField();
