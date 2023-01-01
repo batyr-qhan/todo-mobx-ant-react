@@ -1,10 +1,10 @@
 import React from "react";
 
 import { observer, inject } from "mobx-react"; //These functions make our components observable and be able to use the store
-import TodoList from "../../components/TodoItem";
-import Form from "../../components/Form";
-import TaskStore from "../../models/TaskStore";
-import GlobalStyle from "../../styles/global";
+import TodoList from "../components/TodoItem";
+import Form from "../components/Form";
+import TaskStore from "../models/TaskStore";
+import GlobalStyle from "../styles/global";
 import {
   FormContainer,
   Container,
