@@ -1,7 +1,7 @@
 import { types } from "mobx-state-tree";
 const Todo = types
   .model("Todo", {
-    // id: types.identifier,
+    id: types.number,
     title: types.string,
     is_done: false,
   })

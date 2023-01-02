@@ -3,28 +3,41 @@ import Todo from "./Todo";
 
 const TaskStore = types
   .model("Todo", {
-    Todo: types.array(Todo),
+    Todos: types.array(Todo),
     InputValue: "",
   })
   .views((self) => {
     return {
       getFilteredTodos() {
-        return self.Todo.filter((el) => el.title.includes(self.InputValue));
+        return self.Todos.filter((el) => el.title.includes(self.InputValue));
       },
     };
   })
   .actions((self) => ({
-        clearField() {
-        self.InputValue = "";
-        },
+    clearField() {
+      self.InputValue = "";
+    },
     add(task: typeof Todo.Type) {
-      self.Todo.push(task);
+      self.Todos.push(task);
     },
     removeTodo(task: typeof Todo.Type) {
-      destroy(task)
+      destroy(task);
     },
     updateValue(val: string) {
       self.InputValue = val;
+    },
+    editTodo(task: typeof Todo.Type, newValue: string) {
+      console.log(self.Todos)
+      self.Todos.map((el) => {
+        if (el.id === task.id) {
+          alert('owieruwoie')
+          return {
+            ...el,
+            title: newValue,
+          };
+        }
+        return el;
+      });
     },
   }));
 export default TaskStore;

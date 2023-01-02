@@ -1,40 +1,56 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { observer, inject } from "mobx-react"; //These functions make our components observable and be able to use the store
-import TodoList from "../components/TodoItem";
-import Form from "../components/Form";
-import TaskStore from "../models/TaskStore";
-import GlobalStyle from "../styles/global";
-import {
-  FormContainer,
-  Container,
-  Wrapper,
-  TodoItemsContainer,
-} from "./styles";
+import TodoItem from "../components/TodoItem";
+// import GlobalStyle from "../styles/global";
+import { Container, Wrapper } from "./styles";
+import "antd/dist/reset.css";
+// import './App.css';
 
-type Props = {
-  store: typeof TaskStore.Type;
-};
+import { List } from "antd";
+import InputForm from "../components/InputForm";
+import { Todo } from "../shared/types";
 
-const App: React.FC<Props> = ({ store }) => {
+type Props = {};
+
+const App: React.FC<Props> = () => {
+  const [todos, setTodos] = useState<Todo[]>(() => {
+    // get the todos from localstorage
+    const savedTodos = localStorage.getItem("todos");
+    if (savedTodos) {
+      return JSON.parse(savedTodos);
+    } else {
+      return [];
+    }
+  });
+
+  useEffect(() => {
+    localStorage.setItem("todos", JSON.stringify(todos));
+  }, [todos]);
+
   return (
-    <>
-      <GlobalStyle />
+    <Wrapper>
+      <Container>
+        <InputForm todos={todos} setTodos={setTodos} />
 
-      <Wrapper>
-        <Container>
-          <FormContainer>
-            <Form store={store} />
-          </FormContainer>
-          <TodoItemsContainer>
-            {store.getFilteredTodos().map((todo, i) => (
-              <TodoList todo={todo} key={i} store={store} />
-            ))}
-          </TodoItemsContainer>
-        </Container>
-      </Wrapper>
-    </>
+        <List
+          bordered
+          dataSource={todos}
+          renderItem={(item) => (
+            <TodoItem
+              key={item.id}
+              todo={item}
+              setTodos={setTodos}
+              todos={todos.sort((a, b) => {
+                if (a.is_done !== b.is_done) return 0;
+                return 1
+              })}
+            />
+          )}
+        />
+      </Container>
+    </Wrapper>
   );
 };
 
-export default inject("store")(observer(App));
+export default App;

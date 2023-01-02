@@ -1,6 +1,7 @@
+import { Button } from "antd";
 import { useState } from "react";
 import TaskStore from "../../models/TaskStore";
-import { Button, Input, FormContainer, Label } from "./styles";
+import { Input, FormContainer, Label } from "./styles";
 
 type Props = {
   store: typeof TaskStore.Type;
@@ -14,10 +15,16 @@ const Form: React.FC<Props> = ({ store }) => {
     setLocalInputValue(e.target.value);
   };
   return (
+    
+
+
+
+
     <FormContainer
       onSubmit={(e) => {
         e.preventDefault();
         store.add({
+          id: Math.random(),
           title: store.InputValue,
           is_done: false,
           markDone: function (): void {
@@ -46,9 +53,12 @@ const Form: React.FC<Props> = ({ store }) => {
           placeholder="pls input your next todo..."
         />
       </Label>
-      <Button disabled={!Boolean(store.InputValue)} type="submit">
+      <Button type="primary" htmlType="submit">
         Add
       </Button>
+      {/* <Button disabled={!Boolean(store.InputValue)} type="submit">
+        Add
+      </Button> */}
     </FormContainer>
   );
 };

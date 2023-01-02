@@ -1,6 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom";
-// import "./index.css";
+import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import TaskStore from "./models/TaskStore";
@@ -17,7 +17,7 @@ makeInspectable(store);
 ReactDOM.render(
   <Provider store={store}>
     <React.StrictMode>
-      <App store={store} />
+      <App />
     </React.StrictMode>
   </Provider>,
   document.getElementById("root")
