@@ -1,12 +1,15 @@
 {
   "files": {
-    "main.js": "/todo-mobx-app/static/js/main.8c0948a6.js",
-    "static/js/787.3e1dfeaa.chunk.js": "/todo-mobx-app/static/js/787.3e1dfeaa.chunk.js",
-    "index.html": "/todo-mobx-app/index.html",
-    "main.8c0948a6.js.map": "/todo-mobx-app/static/js/main.8c0948a6.js.map",
-    "787.3e1dfeaa.chunk.js.map": "/todo-mobx-app/static/js/787.3e1dfeaa.chunk.js.map"
+    "main.css": "/todo-mobx-ant-react/static/css/main.3917511e.css",
+    "main.js": "/todo-mobx-ant-react/static/js/main.51251a27.js",
+    "static/js/787.3e1dfeaa.chunk.js": "/todo-mobx-ant-react/static/js/787.3e1dfeaa.chunk.js",
+    "index.html": "/todo-mobx-ant-react/index.html",
+    "main.3917511e.css.map": "/todo-mobx-ant-react/static/css/main.3917511e.css.map",
+    "main.51251a27.js.map": "/todo-mobx-ant-react/static/js/main.51251a27.js.map",
+    "787.3e1dfeaa.chunk.js.map": "/todo-mobx-ant-react/static/js/787.3e1dfeaa.chunk.js.map"
   },
   "entrypoints": [
-    "static/js/main.8c0948a6.js"
+    "static/css/main.3917511e.css",
+    "static/js/main.51251a27.js"
   ]
 }
