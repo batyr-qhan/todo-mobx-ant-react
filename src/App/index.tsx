@@ -1,6 +1,4 @@
 import React, { useEffect, useState } from "react";
-
-import { observer, inject } from "mobx-react"; //These functions make our components observable and be able to use the store
 import TodoItem from "../components/TodoItem";
 // import GlobalStyle from "../styles/global";
 import { Container, Wrapper } from "./styles";
@@ -43,7 +41,7 @@ const App: React.FC<Props> = () => {
               setTodos={setTodos}
               todos={todos.sort((a, b) => {
                 if (a.is_done !== b.is_done) return 0;
-                return 1
+                return 1;
               })}
             />
           )}

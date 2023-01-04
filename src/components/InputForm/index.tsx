@@ -2,12 +2,7 @@ import React, { ChangeEvent, useState } from "react";
 import { Form, Input, Checkbox, Button, List, FormInstance } from "antd";
 import TaskStore from "../../models/TaskStore";
 import { randomUUID } from "crypto";
-
-type Todo = {
-  id: number;
-  title: string;
-  is_done: boolean;
-};
+import { Todo } from "../../shared/types";
 
 type Props = {
   todos: Todo[];
@@ -27,6 +22,7 @@ const InputForm: React.FC<Props> = ({ todos, setTodos }) => {
           id: todos.length + 1,
           title: todo.trim(),
           is_done: false,
+          timeStamp: new Date(),
         },
       ]);
     }
@@ -41,7 +37,6 @@ const InputForm: React.FC<Props> = ({ todos, setTodos }) => {
     setTodo(e.target.value);
   }
 
-
   return (
     <Form
       form={form}
@@ -55,7 +50,7 @@ const InputForm: React.FC<Props> = ({ todos, setTodos }) => {
       className="my-form"
     >
       <Form.Item name="todo-title" className="my-input">
-        <Input onChange={handleInputChange} />
+        <Input placeholder="your next todo" onChange={handleInputChange} />
       </Form.Item>
 
       <Form.Item>

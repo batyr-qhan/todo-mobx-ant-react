@@ -1,5 +1,4 @@
 import { observer } from "mobx-react";
-import Todo from "../../models/Todo";
 import { FaCheck, FaCloud, FaCross, FaEdit, FaTrashAlt } from "react-icons/fa";
 import {
   IoBrushOutline,
@@ -17,21 +16,12 @@ import {
 } from "./styles";
 import { Text } from "../Text";
 import Checkbox from "../Checkbox";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Input } from "antd";
-
-type Todo = {
-  id: number;
-  title: string;
-  is_done: boolean;
-};
+import { Todo } from "../../shared/types";
 
 type Props = {
-  todo: {
-    id: number;
-    title: string;
-    is_done: boolean;
-  };
+  todo: Todo;
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>;
   todos: Todo[];
 };
@@ -39,11 +29,38 @@ type Props = {
 const TodoItem: React.FC<Props> = ({ todo, setTodos, todos }) => {
   const [editMode, setEditMode] = useState(false);
   const [editedValue, setEditedValue] = useState(todo.title);
+  const [remainingDays, setRemainingDays] = useState(0);
+
+  useEffect(() => {
+    if (!!todo.is_done && todo.timeStamp) {
+      const currentTime = new Date();
+
+      if (todo.timeStamp) {
+        const diffTime =
+          currentTime.getTime() - new Date(todo.timeStamp).getTime();
+
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+
+        const countDown = 31 - diffDays;
+
+        setRemainingDays(countDown);
+
+        if (diffDays > 30) {
+          handleDeleteClick();
+        }
+      }
+    }
+  }, [todo.is_done, todo.timeStamp]);
 
   const onCheckHandler = () => {
     const updatedTodos = todos.map((el) => {
       if (el.id === todo.id) {
-        return { ...el, is_done: !el.is_done };
+        if (todo.is_done) {
+          delete el.timeStamp;
+          return { ...el, is_done: !el.is_done };
+        } else {
+          return { ...el, is_done: !el.is_done, timeStamp: new Date() };
+        }
       }
       return el;
     });
@@ -113,6 +130,10 @@ const TodoItem: React.FC<Props> = ({ todo, setTodos, todos }) => {
         </IconsContainer>
       ) : (
         <IconsContainer>
+          {todo.is_done && todo.timeStamp && (
+            <IconContainer isCountdown>{remainingDays}</IconContainer>
+          )}
+
           <IconContainer>
             <IoBrushOutline
               size={16}

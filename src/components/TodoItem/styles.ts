@@ -18,20 +18,45 @@ export const ItemContainer = styled.div`
 export const Content = styled.div`
   flex: 1;
   display: flex;
-  align-items:center;
+  align-items: center;
 `;
 
 export const IconsContainer = styled.ul`
   display: flex;
 `;
 
-export const IconContainer = styled.li`
+interface IContainerProps {
+  isCountdown?: boolean;
+}
+
+export const IconContainer = styled.li<IContainerProps>`
+  background-color: ${(props) => props.isCountdown && "#fc3a52"};
+  padding: ${(props) => props.isCountdown && "3px 8px"};
+  border-radius: ${(props) => props.isCountdown && "5px"};
+  color: ${(props) => props.isCountdown && "#fff"};
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin-right: 12px;
+  position: relative;
   &:last-child {
     margin-right: 0;
   }
   &:hover {
-    transform: scale(1.2)
+    transform: ${(props) => !props.isCountdown && "scale(1.2)"};
+    &:after {
+      content: "Days until this task is deleted. Get back in one month to check how it works =)";
+      display: ${(props) => (props.isCountdown ? "block" : "none")};
+      position: absolute;
+      background-color: #fc3a;
+      font-size: 10px;
+      width: 150px;
+      top: -60px;
+      right: -150px;
+      z-index: 10;
+      padding: 5px;
+      border-radius: 5px;
+    }
   }
 `;
 
